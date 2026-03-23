@@ -1,0 +1,253 @@
+.members-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.members-header {
+  margin-bottom: 40px;
+}
+
+.members-header h1 {
+  font-size: 32px;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.members-header p {
+  color: #666;
+  font-size: 16px;
+}
+
+.members-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
+}
+
+.add-member-section,
+.members-list-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f0f0f0;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+}
+
+.member-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.form-group input {
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: #f9f9ff;
+}
+
+.error-message,
+.success-message {
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.error-message {
+  background: #fee;
+  color: #c33;
+  border-left: 4px solid #c33;
+}
+
+.success-message {
+  background: #efe;
+  color: #3c3;
+  border-left: 4px solid #3c3;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.member-card {
+  background: linear-gradient(135deg, #f9fafb 0%, #f0f1f7 100%);
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #e8e9f3;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.member-card:hover {
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+  border-color: #667eea;
+}
+
+.member-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.member-info {
+  flex: 1;
+}
+
+.member-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.member-email {
+  margin: 0;
+  font-size: 12px;
+  color: #999;
+}
+
+.member-balance {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.balance-label {
+  font-size: 11px;
+  color: #999;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.balance-amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.balance-amount.zero {
+  color: #666;
+}
+
+.balance-amount.owes {
+  color: #f5576c;
+}
+
+.balance-amount.owed {
+  color: #43e97b;
+}
+
+.balance-status {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #999;
+}
+
+@media (max-width: 1024px) {
+  .members-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .members-container {
+    padding: 20px 16px;
+  }
+
+  .members-header h1 {
+    font-size: 24px;
+  }
+
+  .members-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .member-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .member-balance {
+    text-align: center;
+  }
+}
