@@ -87,7 +87,7 @@ export default function Payments({ members, onRecordPayment, payments }) {
             </div>
 
             <div className="form-group">
-              <label htmlFor="amount">Amount ($)</label>
+              <label htmlFor="amount">Amount (kshs)</label>
               <input
                 type="number"
                 id="amount"
