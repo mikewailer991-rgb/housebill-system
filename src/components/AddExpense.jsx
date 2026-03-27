@@ -139,7 +139,7 @@ export default function AddExpense({ members, onAddExpense }) {
 
             <div className="form-row">
               <div className="form-group">
-                <label htmlFor="amount">Amount ($)</label>
+                <label htmlFor="amount">Amount (kshs)</label>
                 <input
                   type="number"
                   id="amount"

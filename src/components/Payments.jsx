@@ -162,7 +162,7 @@ export default function Payments({ members, onRecordPayment, payments }) {
                   {recentPayments.map(payment => (
                     <tr key={payment.id} className="payment-row">
                       <td className="payer-cell">{payment.payerName}</td>
-                      <td className="amount-cell">${payment.amount.toFixed(2)}</td>
+                      <td className="amount-cell">kshs{payment.amount.toFixed(2)}</td>
                       <td className="description-cell">{payment.description}</td>
                       <td className="date-cell">
                         {new Date(payment.date).toLocaleDateString()}
