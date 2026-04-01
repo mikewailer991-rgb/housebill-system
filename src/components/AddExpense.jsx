@@ -220,7 +220,7 @@ export default function AddExpense({ members, onAddExpense }) {
               <div className="split-info">
                 <div className="split-item">
                   <span>Amount per person:</span>
-                  <strong>${splitAmount}</strong>
+                  <strong>kshs{splitAmount}</strong>
                 </div>
                 <div className="split-item">
                   <span>Number of people:</span>
@@ -253,7 +253,7 @@ export default function AddExpense({ members, onAddExpense }) {
                 </div>
                 <div className="preview-item">
                   <span>Amount:</span>
-                  <strong>${formData.amount || '0.00'}</strong>
+                  <strong>kshs{formData.amount || '0.00'}</strong>
                 </div>
                 <div className="preview-item">
                   <span>Date:</span>
@@ -266,7 +266,7 @@ export default function AddExpense({ members, onAddExpense }) {
                 {formData.selectedMembers.length > 0 && (
                   <div className="preview-item">
                     <span>Per Person:</span>
-                    <strong>${splitAmount}</strong>
+                    <strong>kshs{splitAmount}</strong>
                   </div>
                 )}
               </>

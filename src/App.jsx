@@ -13,44 +13,47 @@ import './App.css';
 export default function App({ onSyncQueued }) {
   const [authState, setAuthState] = useState('login'); // login, signup, forgotPassword
   const [user, setUser] = useState(null);
-  const [members, setMembers] = useState([
-    { id: 1, name: 'John Doe', email: 'john@example.com', balance: 0 },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', balance: 0 }
-  ]);
-  const [expenses, setExpenses] = useState([
-    {
-      id: 1,
-      title: 'Grocery Shopping',
-      amount: 120.50,
-      date: '2025-02-15',
-      members: [1, 2],
-      splits: [ { id: 1, percent: 50 }, { id: 2, percent: 50 } ]
-    },
-    {
-      id: 2,
-      title: 'Internet Bill',
-      amount: 80.00,
-      date: '2025-02-18',
-      members: [1, 2],
-      splits: [ { id: 1, percent: 50 }, { id: 2, percent: 50 } ]
+  const [members, setMembers] = useState([]);
+  const [expenses, setExpenses] = useState([]);
+  const [payments, setPayments] = useState([]);
+
+  // Load user-specific data from localStorage
+  const loadUserData = (userEmail) => {
+    const userKey = `user_${userEmail}`;
+    const userData = localStorage.getItem(userKey);
+    
+    if (userData) {
+      const { members: savedMembers, expenses: savedExpenses, payments: savedPayments } = JSON.parse(userData);
+      setMembers(savedMembers || []);
+      setExpenses(savedExpenses || []);
+      setPayments(savedPayments || []);
+    } else {
+      // Initialize new user with empty data
+      setMembers([]);
+      setExpenses([]);
+      setPayments([]);
+      saveUserData(userEmail, [], [], []);
     }
-  ]);
-  const [payments, setPayments] = useState([
-    {
-      id: 1,
-      payerName: 'John Doe',
-      amount: 100.00,
-      date: '2025-02-17',
-      description: 'Payment towards shared expenses'
-    }
-  ]);
+  };
+
+  // Save user-specific data to localStorage
+  const saveUserData = (userEmail, membersData, expensesData, paymentsData) => {
+    const userKey = `user_${userEmail}`;
+    localStorage.setItem(userKey, JSON.stringify({
+      members: membersData,
+      expenses: expensesData,
+      payments: paymentsData
+    }));
+  };
 
   // Load data from localStorage on mount
   useEffect(() => {
     const savedUser = localStorage.getItem('currentUser');
     if (savedUser) {
       try {
-        setUser(JSON.parse(savedUser));
+        const userData = JSON.parse(savedUser);
+        setUser(userData);
+        loadUserData(userData.email);
       } catch (e) {
         console.error('Error loading user:', e);
       }
@@ -82,6 +85,7 @@ export default function App({ onSyncQueued }) {
   const handleLogin = (userData) => {
     setUser(userData);
     localStorage.setItem('currentUser', JSON.stringify(userData));
+    loadUserData(userData.email);
   };
 
   const handleLogout = () => {
@@ -92,13 +96,17 @@ export default function App({ onSyncQueued }) {
   };
 
   const handleAddMember = (newMember) => {
-    setMembers([...members, newMember]);
+    const updatedMembers = [...members, newMember];
+    setMembers(updatedMembers);
+    if (user) saveUserData(user.email, updatedMembers, expenses, payments);
   };
 
   const applyExpense = (expense) => {
     setExpenses(prev => {
       if (prev.some(e => e.id === expense.id)) return prev;
-      return [...prev, expense];
+      const newExpenses = [...prev, expense];
+      if (user) saveUserData(user.email, members, newExpenses, payments);
+      return newExpenses;
     });
 
     setMembers(prev => {
@@ -110,6 +118,7 @@ export default function App({ onSyncQueued }) {
           member.balance -= share;
         }
       });
+      if (user) saveUserData(user.email, updated, expenses, payments);
       return updated;
     });
   };
@@ -128,7 +137,9 @@ export default function App({ onSyncQueued }) {
   const applyPayment = (payment) => {
     setPayments(prev => {
       if (prev.some(p => p.id === payment.id)) return prev;
-      return [...prev, payment];
+      const newPayments = [...prev, payment];
+      if (user) saveUserData(user.email, members, expenses, newPayments);
+      return newPayments;
     });
 
     setMembers(prev => {
@@ -156,6 +167,7 @@ export default function App({ onSyncQueued }) {
         if (payer) payer.balance += payment.amount;
       }
 
+      if (user) saveUserData(user.email, updatedMembers, expenses, payments);
       return updatedMembers;
     });
   };

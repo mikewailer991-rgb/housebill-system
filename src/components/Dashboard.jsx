@@ -20,7 +20,7 @@ export default function Dashboard({ expenses, payments, members }) {
           <div className="stat-icon total">💰</div>
           <div className="stat-content">
             <p className="stat-label">Total Expenses</p>
-            <h2 className="stat-value">${totalExpenses.toFixed(2)}</h2>
+            <h2 className="stat-value">kshs{totalExpenses.toFixed(2)}</h2>
           </div>
         </div>
 
@@ -28,7 +28,7 @@ export default function Dashboard({ expenses, payments, members }) {
           <div className="stat-icon paid">✅</div>
           <div className="stat-content">
             <p className="stat-label">Total Paid</p>
-            <h2 className="stat-value">${totalPaid.toFixed(2)}</h2>
+            <h2 className="stat-value">kshs{totalPaid.toFixed(2)}</h2>
           </div>
         </div>
 
@@ -37,7 +37,7 @@ export default function Dashboard({ expenses, payments, members }) {
           <div className="stat-content">
             <p className="stat-label">Remaining Balance</p>
             <h2 className={`stat-value ${remainingBalance > 0 ? 'negative' : 'positive'}`}>
-              ${remainingBalance.toFixed(2)}
+              kshs{remainingBalance.toFixed(2)}
             </h2>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function Dashboard({ expenses, payments, members }) {
                       {new Date(expense.date).toLocaleDateString()} • {expense.members?.length || 1} members
                     </p>
                   </div>
-                  <div className="expense-amount">${expense.amount.toFixed(2)}</div>
+                  <div className="expense-amount">kshs{expense.amount.toFixed(2)}</div>
                 </div>
               ))}
             </div>
@@ -85,11 +85,11 @@ export default function Dashboard({ expenses, payments, members }) {
             <h3>Expense Summary</h3>
             <div className="summary-item">
               <span>Avg. Expense:</span>
-              <strong>${(totalExpenses / (expenses.length || 1)).toFixed(2)}</strong>
+              <strong>kshs{(totalExpenses / (expenses.length || 1)).toFixed(2)}</strong>
             </div>
             <div className="summary-item">
               <span>Avg. Per Member:</span>
-              <strong>${(totalExpenses / (members.length || 1)).toFixed(2)}</strong>
+              <strong>kshs{(totalExpenses / (members.length || 1)).toFixed(2)}</strong>
             </div>
             <div className="summary-item">
               <span>Total Members:</span>
@@ -101,16 +101,16 @@ export default function Dashboard({ expenses, payments, members }) {
             <h3>Payment Summary</h3>
             <div className="summary-item">
               <span>Total Payments:</span>
-              <strong>${totalPaid.toFixed(2)}</strong>
+              <strong>kshs{totalPaid.toFixed(2)}</strong>
             </div>
             <div className="summary-item">
               <span>Avg. Payment:</span>
-              <strong>${(totalPaid / (payments.length || 1)).toFixed(2)}</strong>
+              <strong>kshs{(totalPaid / (payments.length || 1)).toFixed(2)}</strong>
             </div>
             <div className="summary-item">
               <span>Pending:</span>
               <strong className={remainingBalance > 0 ? 'negative' : 'positive'}>
-                ${remainingBalance.toFixed(2)}
+                kshs{remainingBalance.toFixed(2)}
               </strong>
             </div>
           </div>

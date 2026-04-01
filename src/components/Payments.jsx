@@ -6,7 +6,8 @@ export default function Payments({ members, onRecordPayment, payments }) {
     payerName: '',
     amount: '',
     date: new Date().toISOString().split('T')[0],
-    description: ''
+    description: '',
+    paymentMethod: 'cash'
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -39,7 +40,8 @@ export default function Payments({ members, onRecordPayment, payments }) {
       payerName: formData.payerName,
       amount: parseFloat(formData.amount),
       date: formData.date,
-      description: formData.description || 'Payment'
+      description: formData.description || 'Payment',
+      paymentMethod: formData.paymentMethod
     };
 
     onRecordPayment(payment);
@@ -49,7 +51,8 @@ export default function Payments({ members, onRecordPayment, payments }) {
       payerName: '',
       amount: '',
       date: new Date().toISOString().split('T')[0],
-      description: ''
+      description: '',
+      paymentMethod: 'cash'
     });
 
     setTimeout(() => setSuccess(''), 3000);
@@ -124,6 +127,20 @@ export default function Payments({ members, onRecordPayment, payments }) {
               />
             </div>
 
+            <div className="form-group">
+              <label htmlFor="paymentMethod">Payment Method</label>
+              <select
+                id="paymentMethod"
+                name="paymentMethod"
+                value={formData.paymentMethod}
+                onChange={handleInputChange}
+              >
+                <option value="cash">Cash</option>
+                <option value="mpesa">M-Pesa</option>
+                <option value="airtel">Airtel Money</option>
+              </select>
+            </div>
+
             {error && <div className="error-message">{error}</div>}
             {success && <div className="success-message">{success}</div>}
 
@@ -154,6 +171,7 @@ export default function Payments({ members, onRecordPayment, payments }) {
                   <tr>
                     <th>Payer</th>
                     <th>Amount</th>
+                    <th>Payment Method</th>
                     <th>Description</th>
                     <th>Date</th>
                   </tr>
@@ -163,6 +181,11 @@ export default function Payments({ members, onRecordPayment, payments }) {
                     <tr key={payment.id} className="payment-row">
                       <td className="payer-cell">{payment.payerName}</td>
                       <td className="amount-cell">kshs{payment.amount.toFixed(2)}</td>
+                      <td className="method-cell">
+                        <span className="payment-method-badge" style={{backgroundColor: payment.paymentMethod === 'mpesa' ? '#33cc33' : payment.paymentMethod === 'airtel' ? '#ff6600' : '#999'}}>
+                          {payment.paymentMethod === 'mpesa' ? '📱 M-Pesa' : payment.paymentMethod === 'airtel' ? '📱 Airtel' : '💵 Cash'}
+                        </span>
+                      </td>
                       <td className="description-cell">{payment.description}</td>
                       <td className="date-cell">
                         {new Date(payment.date).toLocaleDateString()}

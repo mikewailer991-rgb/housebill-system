@@ -126,7 +126,7 @@ export default function Members({ members, onAddMember }) {
                   <div className="member-balance">
                     <span className="balance-label">Balance</span>
                     <span className={`balance-amount ${member.balance === 0 ? 'zero' : member.balance > 0 ? 'owes' : 'owed'}`}>
-                      ${Math.abs(member.balance).toFixed(2)}
+                      kshs{Math.abs(member.balance).toFixed(2)}
                     </span>
                     {member.balance > 0 && <span className="balance-status">owes</span>}
                     {member.balance < 0 && <span className="balance-status">owed</span>}
